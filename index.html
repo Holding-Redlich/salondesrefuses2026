@@ -30,30 +30,71 @@
             display: block;
             border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
         }
 
-        .gallery a {
-            display: block;
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox:target {
+            display: flex;
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Salon des Refusés 2026</h1>
+<h1>Salon des Refusés 2026</h1>
 
-    <div class="gallery">
-        <a href="HOLDING_REDLICH_EVENT_107.jpg" target="_blank">
-            <img src="HOLDING_REDLICH_EVENT_107.jpg" alt="Salon des Refusés 2026">
-        </a>
+<div class="gallery">
 
-        <a href="HOLDING_REDLICH_EVENT_113.jpg" target="_blank">
-            <img src="HOLDING_REDLICH_EVENT_113.jpg" alt="Salon des Refusés 2026">
-        </a>
+    <a href="#img1">
+        <img src="HOLDING_REDLICH_EVENT_107.jpg" alt="Salon des Refusés 2026">
+    </a>
 
-        <a href="HOLDING_REDLICH_EVENT_114.jpg" target="_blank">
-            <img src="HOLDING_REDLICH_EVENT_114.jpg" alt="Salon des Refusés 2026">
-        </a>
-    </div>
+    <a href="#img2">
+        <img src="HOLDING_REDLICH_EVENT_113.jpg" alt="Salon des Refusés 2026">
+    </a>
+
+    <a href="#img3">
+        <img src="HOLDING_REDLICH_EVENT_114.jpg" alt="Salon des Refusés 2026">
+    </a>
+
+</div>
+
+<div id="img1" class="lightbox">
+    <a href="#">
+        <img src="HOLDING_REDLICH_EVENT_107.jpg" alt="Salon des Refusés 2026">
+    </a>
+</div>
+
+<div id="img2" class="lightbox">
+    <a href="#">
+        <img src="HOLDING_REDLICH_EVENT_113.jpg" alt="Salon des Refusés 2026">
+    </a>
+</div>
+
+<div id="img3" class="lightbox">
+    <a href="#">
+        <img src="HOLDING_REDLICH_EVENT_114.jpg" alt="Salon des Refusés 2026">
+    </a>
+</div>
 
 </body>
 </html>
