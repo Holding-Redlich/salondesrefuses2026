@@ -84,7 +84,6 @@ h1 {
     right: 30px;
 }
 
-
 </style>
 
 </head>
@@ -93,7 +92,6 @@ h1 {
 <body>
 
 <h1>Salon des Refusés 2026</h1>
-
 
 <div class="gallery" id="gallery"></div>
 
@@ -117,7 +115,6 @@ h1 {
 const totalImages = 148;
 
 let currentImage = 1;
-
 
 const gallery = document.getElementById("gallery");
 
@@ -143,6 +140,38 @@ for (let i = 1; i <= totalImages; i++) {
     gallery.appendChild(img);
 
 }
+
+
+
+/* Resize iframe automatically */
+
+function sendHeight() {
+
+    window.parent.postMessage({
+        type: "resize",
+        height: document.body.scrollHeight
+    }, "*");
+
+}
+
+
+window.addEventListener("load", function() {
+
+    setTimeout(sendHeight, 1000);
+
+});
+
+
+window.addEventListener("resize", sendHeight);
+
+
+
+document.querySelectorAll(".gallery img").forEach(function(image){
+
+    image.addEventListener("load", sendHeight);
+
+});
+
 
 
 
@@ -192,7 +221,6 @@ function changeImage(direction) {
     updateImage();
 
 }
-
 
 </script>
 
