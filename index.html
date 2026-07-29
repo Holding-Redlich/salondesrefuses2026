@@ -1,120 +1,203 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salon des Refusés 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 30px;
-            background: #f8f8f8;
-        }
+<title>Salon des Refusés 2026</title>
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
+<style>
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    background: #f8f8f8;
+}
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        .gallery a {
-            display: block;
-        }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
 
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            box-sizing: border-box;
-        }
+.gallery img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
 
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-        }
 
-        .lightbox:target {
-            display: flex;
-        }
+/* Lightbox */
 
-        /* Exit button */
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
 
-    </style>
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+
+/* Buttons */
+
+.close,
+.prev,
+.next {
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close {
+    top: 20px;
+    right: 30px;
+}
+
+.prev {
+    left: 30px;
+}
+
+.next {
+    right: 30px;
+}
+
+
+</style>
+
 </head>
+
 
 <body>
 
 <h1>Salon des Refusés 2026</h1>
 
-<div class="gallery">
 
-    <a href="#image1">
-        <img src="HOLDING_REDLICH_EVENT_107.jpg" alt="Salon des Refusés 2026">
-    </a>
+<div class="gallery" id="gallery"></div>
 
-    <a href="#image2">
-        <img src="HOLDING_REDLICH_EVENT_113.jpg" alt="Salon des Refusés 2026">
-    </a>
 
-    <a href="#image3">
-        <img src="HOLDING_REDLICH_EVENT_114.jpg" alt="Salon des Refusés 2026">
-    </a>
+<div class="lightbox" id="lightbox">
+
+    <a class="close" onclick="closeImage()">×</a>
+
+    <a class="prev" onclick="changeImage(-1)">‹</a>
+
+    <img id="lightboxImage">
+
+    <a class="next" onclick="changeImage(1)">›</a>
 
 </div>
 
 
-<!-- Enlarged images -->
 
-<div id="image1" class="lightbox">
-    <a href="#" class="close">&times;</a>
-    <img src="HOLDING_REDLICH_EVENT_107.jpg" alt="Salon des Refusés 2026">
-</div>
+<script>
 
-<div id="image2" class="lightbox">
-    <a href="#" class="close">&times;</a>
-    <img src="HOLDING_REDLICH_EVENT_113.jpg" alt="Salon des Refusés 2026">
-</div>
+const totalImages = 148;
 
-<div id="image3" class="lightbox">
-    <a href="#" class="close">&times;</a>
-    <img src="HOLDING_REDLICH_EVENT_114.jpg" alt="Salon des Refusés 2026">
-</div>
+let currentImage = 1;
+
+
+const gallery = document.getElementById("gallery");
+
+
+for (let i = 1; i <= totalImages; i++) {
+
+    let number = String(i).padStart(3, "0");
+
+    let filename = `HOLDING_REDLICH_EVENT_${number}.jpg`;
+
+    let img = document.createElement("img");
+
+    img.src = filename;
+
+    img.loading = "lazy";
+
+    img.alt = "Salon des Refusés 2026";
+
+    img.onclick = function() {
+        openImage(i);
+    };
+
+    gallery.appendChild(img);
+
+}
+
+
+
+function openImage(number) {
+
+    currentImage = number;
+
+    document.getElementById("lightbox").classList.add("active");
+
+    updateImage();
+
+}
+
+
+function updateImage() {
+
+    let number = String(currentImage).padStart(3, "0");
+
+    document.getElementById("lightboxImage").src =
+    `HOLDING_REDLICH_EVENT_${number}.jpg`;
+
+}
+
+
+function closeImage() {
+
+    document.getElementById("lightbox").classList.remove("active");
+
+}
+
+
+function changeImage(direction) {
+
+    currentImage += direction;
+
+
+    if (currentImage < 1) {
+        currentImage = totalImages;
+    }
+
+
+    if (currentImage > totalImages) {
+        currentImage = 1;
+    }
+
+
+    updateImage();
+
+}
+
+
+</script>
 
 
 </body>
 </html>
+```
