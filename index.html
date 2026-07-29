@@ -114,12 +114,21 @@ h1 {
 
 const totalImages = 148;
 
+// Images removed from the gallery
+const excludedImages = [6, 81];
+
 let currentImage = 1;
 
 const gallery = document.getElementById("gallery");
 
 
+// Create gallery images
+
 for (let i = 1; i <= totalImages; i++) {
+
+    if (excludedImages.includes(i)) {
+        continue;
+    }
 
     let number = String(i).padStart(3, "0");
 
@@ -175,6 +184,7 @@ document.querySelectorAll(".gallery img").forEach(function(image){
 
 
 
+
 function openImage(number) {
 
     currentImage = number;
@@ -184,6 +194,7 @@ function openImage(number) {
     updateImage();
 
 }
+
 
 
 function updateImage() {
@@ -196,6 +207,7 @@ function updateImage() {
 }
 
 
+
 function closeImage() {
 
     document.getElementById("lightbox").classList.remove("active");
@@ -203,19 +215,25 @@ function closeImage() {
 }
 
 
+
 function changeImage(direction) {
 
-    currentImage += direction;
+    do {
+
+        currentImage += direction;
 
 
-    if (currentImage < 1) {
-        currentImage = totalImages;
-    }
+        if (currentImage < 1) {
+            currentImage = totalImages;
+        }
 
 
-    if (currentImage > totalImages) {
-        currentImage = 1;
-    }
+        if (currentImage > totalImages) {
+            currentImage = 1;
+        }
+
+
+    } while (excludedImages.includes(currentImage));
 
 
     updateImage();
@@ -223,6 +241,10 @@ function changeImage(direction) {
 }
 
 </script>
+
+
+</body>
+</html>
 
 
 </body>
